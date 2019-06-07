@@ -16,7 +16,7 @@ require("core-js/modules/web.dom.iterable");
 
 var _employers = _interopRequireDefault(require("./employers"));
 
-var _money = require("./money");
+var _money = _interopRequireDefault(require("./money"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57,15 +57,19 @@ function () {
     value: function makeBusiness() {
       var _console;
 
-      var eu = _money.sponsors.eu,
-          rus = _money.sponsors.rus;
+      var cache = new _money.default();
+
+      var _cache$getSponsors = cache.getSponsors(),
+          eu = _cache$getSponsors.eu,
+          rus = _cache$getSponsors.rus;
+
       var sumSponsors = [].concat(_toConsumableArray(eu), _toConsumableArray(rus), ["unexpected sponsor"]);
       console.log("We have a business. Owner: ".concat(this.owner, ", director: ").concat(this.director, ". Our budget: ").concat(this.cash, ". And our employers: ").concat(this.emp));
       console.log("And we have a sponsors: ");
 
       (_console = console).log.apply(_console, _toConsumableArray(sumSponsors));
 
-      console.log("Note. Be careful with ".concat(_money.sponsors.eu[0], ". It's a huge risk."));
+      console.log("Note. Be careful with ".concat(eu[0], ". It's a huge risk."));
     }
   }]);
 
@@ -74,7 +78,7 @@ function () {
 
 var business = new Business({
   owner: "Sam",
-  cash: _money.money,
-  emp: _employers.default
+  cash: new _money.default().calcCash(),
+  emp: new _employers.default().getEmployersNames()
 });
 business.makeBusiness();
