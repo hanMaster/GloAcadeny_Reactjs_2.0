@@ -19,6 +19,9 @@
   box-shadow: none;
   outline: none;
 }
+.app-list-item .btn-edit {
+  color: #09d113;
+}
 .app-list-item .btn-star {
   color: #ffd700;
 }
@@ -48,6 +51,12 @@
   font-size: 10px;
   color: #aeaeae;
 }
+.app-list-item-edit {
+  display: block;
+}
+.app-list-item-edit-hide {
+  display: none;
+}
 
 .app-list-item.like .fa-heart {
   opacity: 1;
@@ -60,4 +69,13 @@
 
 .app-list-item.important .btn-star {
   color: #aeaeae;
+}
+
+.editForm {
+  width: auto;
+  flex-grow: 1;
+  margin: 5px 0;
+}
+.editForm button {
+  margin-left: 3px;
 }
