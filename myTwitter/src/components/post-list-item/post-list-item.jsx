@@ -37,10 +37,17 @@ export default class PostListItem extends Component {
     });
   };
   onSaveClicked = () => {
-    this.setState({
-      showEidtBox: false,
-      label: this.state.tempLabel
-    });
+    let newLabel = this.state.tempLabel.trim();
+    if (newLabel.length > 0) {
+      this.setState({
+        showEidtBox: false,
+        label: this.state.tempLabel
+      });
+    } else {
+      this.setState({
+        showEidtBox: false
+      });
+    }
   };
   onInputChange = e => {
     this.setState({
@@ -49,6 +56,7 @@ export default class PostListItem extends Component {
   };
 
   render() {
+    const { onDelete } = this.props;
     const { label, important, like, showEidtBox, tempLabel } = this.state;
     const currentDate = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
@@ -114,6 +122,7 @@ export default class PostListItem extends Component {
               type="button"
               className="btn-trash btn-sm"
               title="Delete post"
+              onClick={onDelete}
             >
               <i className="fa fa-trash-o" />
             </button>
