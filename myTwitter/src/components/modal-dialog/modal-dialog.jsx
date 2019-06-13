@@ -2,20 +2,15 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 export default class ModalDialog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false
-    };
+  state = {
+    modal: false
+  };
 
-    this.toggle = this.toggle.bind(this);
-  }
-
-  toggle() {
+  toggle = () => {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
-  }
+  };
 
   render() {
     const {
@@ -30,11 +25,7 @@ export default class ModalDialog extends Component {
         <button onClick={this.toggle} className={btnClassNames}>
           {buttonLabel}
         </button>
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className={this.props.className}
-        >
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>{headerText}</ModalHeader>
           <ModalBody>{bodyText}</ModalBody>
           <ModalFooter>
