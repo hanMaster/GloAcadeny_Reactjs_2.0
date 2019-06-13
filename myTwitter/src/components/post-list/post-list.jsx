@@ -1,7 +1,9 @@
-import React from 'react';
-import PostListItem from '../post-list-item/post-list-item';
-import isObject from '../../utils/utils';
-import './post-list.css';
+import React from "react";
+import PostListItem from "../post-list-item/post-list-item";
+import isObject from "../../utils/utils";
+import { ListGroup } from "reactstrap";
+
+import "./post-list.css";
 
 const PostList = ({ posts, onDelete }) => {
   const elements = posts.map(post => {
@@ -11,6 +13,6 @@ const PostList = ({ posts, onDelete }) => {
       <PostListItem key={id} {...postProps} onDelete={() => onDelete(id)} />
     );
   });
-  return <ul className="app-list list-group">{elements}</ul>;
+  return <ListGroup className="app-list">{elements}</ListGroup>;
 };
 export default PostList;

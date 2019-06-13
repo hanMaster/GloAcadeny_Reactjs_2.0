@@ -1,12 +1,16 @@
-import React from 'react';
+import React from "react";
+import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 const SearchPanel = () => {
   return (
-    <input
-      className="form-control search-input"
-      type="text"
-      placeholder="Поиск по записям"
-    />
+    <InputGroup>
+      <InputGroupAddon addonType="prepend">Search</InputGroupAddon>
+      <Input
+        className="search-input"
+        type="text"
+        placeholder="Поиск по записям"
+      />
+    </InputGroup>
   );
 };
 
