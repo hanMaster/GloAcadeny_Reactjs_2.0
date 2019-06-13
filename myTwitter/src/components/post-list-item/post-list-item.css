@@ -15,6 +15,16 @@
   border: none;
   cursor: pointer;
 }
+.btn-show-delete-modal {
+  width: 35px;
+  height: 35px;
+  margin: 3px;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  color: red;
+}
+
 .app-list-item button:focus {
   box-shadow: none;
   outline: none;
