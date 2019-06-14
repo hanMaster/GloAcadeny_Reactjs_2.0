@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import AppHeader from './../app-header/';
-import SearchPanel from '../search-panel/search-panel';
-import PostStatusFilter from '../post-status-filter/post-status-filter';
-import PostList from '../post-list/post-list';
-import PostAddForm from '../post-add-form/post-add-form';
-import { getUId } from '../../utils/utils';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import AppHeader from "./../app-header/";
+import SearchPanel from "../search-panel/search-panel";
+import PostStatusFilter from "../post-status-filter/post-status-filter";
+import PostList from "../post-list/post-list";
+import PostAddForm from "../post-add-form/post-add-form";
+import { getUId } from "../../utils/utils";
+import styled from "styled-components";
 
 const AppWrapper = styled.div`
   margin: 0 auto;
@@ -14,12 +14,22 @@ const AppWrapper = styled.div`
 export default class App extends Component {
   state = {
     data: [
-      { id: 'asldkj', label: 'Going to learn React', important: true, like: false },
-      { id: 'sdfgdh', label: 'That is so good', important: false, like: true },
-      { id: 'ghjkjl', label: 'I need a break...', important: false, like: false }
+      {
+        id: "asldkj",
+        label: "Going to learn React",
+        important: true,
+        like: false
+      },
+      { id: "sdfgdh", label: "That is so good", important: false, like: true },
+      {
+        id: "ghjkjl",
+        label: "I need a break...",
+        important: false,
+        like: false
+      }
     ],
-    term: '',
-    doFilter: false
+    term: "",
+    filter: "all"
   };
 
   deleteItem(id) {
@@ -37,9 +47,9 @@ export default class App extends Component {
     this.setState(({ data }) => {
       const index = data.findIndex(elem => elem.id === id);
       const newData = [...data];
-      if (field === 'important') {
+      if (field === "important") {
         newData[index].important = !newData[index].important;
-      } else if (field === 'like') {
+      } else if (field === "like") {
         newData[index].like = !newData[index].like;
       }
       return {
@@ -49,10 +59,10 @@ export default class App extends Component {
   }
 
   toggleImportant(id) {
-    this.switchItemField(id, 'important');
+    this.switchItemField(id, "important");
   }
   toggleLike(id) {
-    this.switchItemField(id, 'like');
+    this.switchItemField(id, "like");
   }
 
   addItem(body) {
@@ -72,6 +82,17 @@ export default class App extends Component {
     });
   }
 
+  saveEditedItem(id, body) {
+    this.setState(({ data }) => {
+      const index = data.findIndex(elem => elem.id === id);
+      const newData = [...data];
+      newData[index].label = body;
+      return {
+        data: newData
+      };
+    });
+  }
+
   searchPosts = (items, term) => {
     if (term.length === 0) return items;
     return items.filter(item => {
@@ -79,12 +100,12 @@ export default class App extends Component {
     });
   };
 
-  setFilter = doFilter => {
-    this.setState({ doFilter });
+  setFilter = filter => {
+    this.setState({ filter });
   };
 
   filterPosts = posts => {
-    if (this.state.doFilter) return posts.filter(item => item.like);
+    if (this.state.filter === "like") return posts.filter(item => item.like);
     return posts;
   };
 
@@ -92,7 +113,7 @@ export default class App extends Component {
     this.setState({ term: e.target.value });
   };
   render() {
-    const { data, term } = this.state;
+    const { data, term, filter } = this.state;
     const allPosts = data.length;
     const likedPosts = data.filter(item => item.like).length;
     const searchResult = this.searchPosts(data, term);
@@ -103,7 +124,7 @@ export default class App extends Component {
         <AppHeader allPosts={allPosts} likedPosts={likedPosts} />
         <div className="d-flex">
           <SearchPanel searchString={term} onSearchChange={this.onSearchChange} />
-          <PostStatusFilter onSetFilter={this.setFilter} />
+          <PostStatusFilter onSetFilter={this.setFilter} filter={filter} />
         </div>
         <PostList
           posts={visiblePosts}
@@ -115,6 +136,9 @@ export default class App extends Component {
           }}
           onToggleLike={id => {
             this.toggleLike(id);
+          }}
+          onSaveEditedItem={(id, body) => {
+            this.saveEditedItem(id, body);
           }}
         />
         <PostAddForm

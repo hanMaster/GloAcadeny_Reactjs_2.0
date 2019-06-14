@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import ModalDialog from '../modal-dialog/modal-dialog';
-import './post-list-item.css';
+import React, { Component } from "react";
+import ModalDialog from "../modal-dialog/modal-dialog";
+import "./post-list-item.css";
 
 export default class PostListItem extends Component {
   state = {
     showEidtBox: false,
-    tempLabel: ''
+    tempLabel: ""
   };
   componentDidMount() {
     this.setState({
@@ -16,7 +16,7 @@ export default class PostListItem extends Component {
   onEditClicked = () => {
     this.setState({
       showEidtBox: true,
-      tempLabel: this.state.label
+      tempLabel: this.props.label
     });
   };
   onCancelClicked = () => {
@@ -27,9 +27,9 @@ export default class PostListItem extends Component {
   onSaveClicked = () => {
     let newLabel = this.state.tempLabel.trim();
     if (newLabel.length > 0) {
+      this.props.onSaveEditedItem(newLabel);
       this.setState({
-        showEidtBox: false,
-        label: this.state.tempLabel
+        showEidtBox: false
       });
     } else {
       this.setState({
@@ -43,19 +43,32 @@ export default class PostListItem extends Component {
     });
   };
 
+  handleKeyDown = e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      this.onSaveClicked();
+    }
+  };
+
   render() {
     const { label, important, like, onDelete, onToggleImportant, onToggleLike } = this.props;
     const { showEidtBox, tempLabel } = this.state;
     const currentDate = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
-    let classNames = 'app-list-item d-flex justify-content-between';
-    if (important) classNames += ' important';
-    if (like) classNames += ' like';
+    let classNames = "app-list-item d-flex justify-content-between";
+    if (important) classNames += " important";
+    if (like) classNames += " like";
 
     if (showEidtBox) {
       return (
         <form className="editForm d-flex">
-          <input type="text" className="form-control new-post-label" value={tempLabel} onChange={this.onInputChange} />
+          <input
+            type="text"
+            className="form-control new-post-label"
+            value={tempLabel}
+            onChange={this.onInputChange}
+            onKeyDown={this.handleKeyDown}
+          />
           <button className="btn btn-outline-primary" type="button" title="Save" onClick={this.onSaveClicked}>
             <i className="fa fa-check" />
           </button>
