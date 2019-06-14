@@ -4,28 +4,15 @@ import './post-list-item.css';
 
 export default class PostListItem extends Component {
   state = {
-    important: false,
-    like: false,
     showEidtBox: false,
-    label: '',
     tempLabel: ''
   };
   componentDidMount() {
     this.setState({
-      label: this.props.label,
       tempLabel: this.props.label
     });
   }
-  onImportant = () => {
-    this.setState({
-      important: !this.state.important
-    });
-  };
-  onLike = () => {
-    this.setState({
-      like: !this.state.like
-    });
-  };
+
   onEditClicked = () => {
     this.setState({
       showEidtBox: true,
@@ -57,8 +44,8 @@ export default class PostListItem extends Component {
   };
 
   render() {
-    const { onDelete } = this.props;
-    const { label, important, like, showEidtBox, tempLabel } = this.state;
+    const { label, important, like, onDelete, onToggleImportant, onToggleLike } = this.props;
+    const { showEidtBox, tempLabel } = this.state;
     const currentDate = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
     let classNames = 'app-list-item d-flex justify-content-between';
@@ -68,26 +55,11 @@ export default class PostListItem extends Component {
     if (showEidtBox) {
       return (
         <form className="editForm d-flex">
-          <input
-            type="text"
-            className="form-control new-post-label"
-            value={tempLabel}
-            onChange={this.onInputChange}
-          />
-          <button
-            className="btn btn-outline-primary"
-            type="button"
-            title="Save"
-            onClick={this.onSaveClicked}
-          >
+          <input type="text" className="form-control new-post-label" value={tempLabel} onChange={this.onInputChange} />
+          <button className="btn btn-outline-primary" type="button" title="Save" onClick={this.onSaveClicked}>
             <i className="fa fa-check" />
           </button>
-          <button
-            className="btn btn-outline-secondary"
-            type="button"
-            onClick={this.onCancelClicked}
-            title="Cancel"
-          >
+          <button className="btn btn-outline-secondary" type="button" onClick={this.onCancelClicked} title="Cancel">
             <i className="fa fa-times" />
           </button>
         </form>
@@ -96,27 +68,17 @@ export default class PostListItem extends Component {
       return (
         <li className={classNames}>
           <div className="flex-grow-1">
-            <span className="app-list-item-label" onClick={this.onLike}>
+            <span className="app-list-item-label" onClick={onToggleLike}>
               {label}
             </span>
             <span className="app-list-item-date">{`${currentDate} - ${time}`}</span>
           </div>
 
           <div className="d-flex justify-content-center align-items-center">
-            <button
-              type="button"
-              className="btn-edit btn-sm"
-              onClick={this.onEditClicked}
-              title="Edit post"
-            >
+            <button type="button" className="btn-edit btn-sm" onClick={this.onEditClicked} title="Edit post">
               <i className="fa fa-edit" />
             </button>
-            <button
-              type="button"
-              className="btn-star btn-sm"
-              onClick={this.onImportant}
-              title="Mark as important"
-            >
+            <button type="button" className="btn-star btn-sm" onClick={onToggleImportant} title="Mark as important">
               <i className="fa fa-star" />
             </button>
             <ModalDialog

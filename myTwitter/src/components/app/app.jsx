@@ -14,13 +14,12 @@ const AppWrapper = styled.div`
 export default class App extends Component {
   state = {
     data: [
-      3,
-      { id: 'asldkj', label: 'Going to learn React', important: true },
-      { id: 'sdfgdh', label: 'That is so good', important: false },
-      { id: 'ghjkjl', label: 'I need a break...', important: false },
-      [1, 3, 5],
-      'string'
-    ]
+      { id: 'asldkj', label: 'Going to learn React', important: true, like: false },
+      { id: 'sdfgdh', label: 'That is so good', important: false, like: true },
+      { id: 'ghjkjl', label: 'I need a break...', important: false, like: false }
+    ],
+    term: '',
+    doFilter: false
   };
 
   deleteItem(id) {
@@ -32,6 +31,28 @@ export default class App extends Component {
         data: newData
       };
     });
+  }
+
+  switchItemField(id, field) {
+    this.setState(({ data }) => {
+      const index = data.findIndex(elem => elem.id === id);
+      const newData = [...data];
+      if (field === 'important') {
+        newData[index].important = !newData[index].important;
+      } else if (field === 'like') {
+        newData[index].like = !newData[index].like;
+      }
+      return {
+        data: newData
+      };
+    });
+  }
+
+  toggleImportant(id) {
+    this.switchItemField(id, 'important');
+  }
+  toggleLike(id) {
+    this.switchItemField(id, 'like');
   }
 
   addItem(body) {
@@ -51,18 +72,49 @@ export default class App extends Component {
     });
   }
 
+  searchPosts = (items, term) => {
+    if (term.length === 0) return items;
+    return items.filter(item => {
+      return item.label.indexOf(term) > -1;
+    });
+  };
+
+  setFilter = doFilter => {
+    this.setState({ doFilter });
+  };
+
+  filterPosts = posts => {
+    if (this.state.doFilter) return posts.filter(item => item.like);
+    return posts;
+  };
+
+  onSearchChange = e => {
+    this.setState({ term: e.target.value });
+  };
   render() {
+    const { data, term } = this.state;
+    const allPosts = data.length;
+    const likedPosts = data.filter(item => item.like).length;
+    const searchResult = this.searchPosts(data, term);
+    const visiblePosts = this.filterPosts(searchResult);
+
     return (
       <AppWrapper>
-        <AppHeader />
+        <AppHeader allPosts={allPosts} likedPosts={likedPosts} />
         <div className="d-flex">
-          <SearchPanel />
-          <PostStatusFilter />
+          <SearchPanel searchString={term} onSearchChange={this.onSearchChange} />
+          <PostStatusFilter onSetFilter={this.setFilter} />
         </div>
         <PostList
-          posts={this.state.data}
+          posts={visiblePosts}
           onDelete={id => {
             this.deleteItem(id);
+          }}
+          onToggleImportant={id => {
+            this.toggleImportant(id);
+          }}
+          onToggleLike={id => {
+            this.toggleLike(id);
           }}
         />
         <PostAddForm

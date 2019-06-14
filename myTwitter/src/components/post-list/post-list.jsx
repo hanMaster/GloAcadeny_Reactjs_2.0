@@ -4,12 +4,18 @@ import isObject from '../../utils/utils';
 import { ListGroup } from 'reactstrap';
 import './post-list.css';
 
-const PostList = ({ posts, onDelete }) => {
+const PostList = ({ posts, onDelete, onToggleImportant, onToggleLike }) => {
   const elements = posts.map(post => {
     const { id, ...postProps } = post;
     if (!isObject(post)) return null;
     return (
-      <PostListItem key={id} {...postProps} onDelete={() => onDelete(id)} />
+      <PostListItem
+        key={id}
+        {...postProps}
+        onDelete={() => onDelete(id)}
+        onToggleImportant={() => onToggleImportant(id)}
+        onToggleLike={() => onToggleLike(id)}
+      />
     );
   });
   return <ListGroup className="app-list">{elements}</ListGroup>;
