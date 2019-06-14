@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import ModalDialog from "../modal-dialog/modal-dialog";
-import "./post-list-item.css";
+import React, { Component } from 'react';
+import ModalDialog from '../modal-dialog/modal-dialog';
+import './post-list-item.css';
 
 export default class PostListItem extends Component {
   state = {
     important: false,
     like: false,
     showEidtBox: false,
-    label: "",
-    tempLabel: ""
+    label: '',
+    tempLabel: ''
   };
   componentDidMount() {
     this.setState({
@@ -61,9 +61,9 @@ export default class PostListItem extends Component {
     const { label, important, like, showEidtBox, tempLabel } = this.state;
     const currentDate = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
-    let classNames = "app-list-item d-flex justify-content-between";
-    if (important) classNames += " important";
-    if (like) classNames += " like";
+    let classNames = 'app-list-item d-flex justify-content-between';
+    if (important) classNames += ' important';
+    if (like) classNames += ' like';
 
     if (showEidtBox) {
       return (

@@ -1,6 +1,6 @@
-import React from "react";
-import { Button } from "reactstrap";
-import "./post-add-form.css";
+import React from 'react';
+import { Button } from 'reactstrap';
+import './post-add-form.css';
 
 const PostAddForm = ({ onAddItem }) => {
   return (
@@ -8,7 +8,7 @@ const PostAddForm = ({ onAddItem }) => {
       className="bottom-panel d-flex"
       onSubmit={e => {
         e.preventDefault();
-        onAddItem("Hello world!");
+        onAddItem('Hello world!');
       }}
     >
       <input

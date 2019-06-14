@@ -1,8 +1,8 @@
-import React from "react";
-import PostListItem from "../post-list-item/post-list-item";
-import isObject from "../../utils/utils";
-import { ListGroup } from "reactstrap";
-import "./post-list.css";
+import React from 'react';
+import PostListItem from '../post-list-item/post-list-item';
+import isObject from '../../utils/utils';
+import { ListGroup } from 'reactstrap';
+import './post-list.css';
 
 const PostList = ({ posts, onDelete }) => {
   const elements = posts.map(post => {

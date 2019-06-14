@@ -1,5 +1,5 @@
-import React from "react";
-import { InputGroup, InputGroupAddon, Input } from "reactstrap";
+import React from 'react';
+import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 
 const SearchPanel = () => {
   return (

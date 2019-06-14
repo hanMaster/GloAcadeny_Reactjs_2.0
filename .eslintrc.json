@@ -6,7 +6,10 @@
         "node": true
     },
     "extends": ["eslint:recommended",
-                 "plugin:react/recommended"],
+                "plugin:react/recommended",
+								"prettier",
+								"prettier/react"
+							],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -14,9 +17,18 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+		"prettier/prettier":[
+			"error",
+			{
+				"trailingComma":"es5",
+				"singleQuote": true,
+				"printWidth": 120,
+			}
+		],
     "plugins": [
         "react",
-        "babel"
+        "babel",
+				"prettier"
     ],
     "rules": {
         "no-unused-vars": ["error", { "caughtErrorsIgnorePattern": "^ignore" }],

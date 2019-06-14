@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import React, { Component } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class ModalDialog extends Component {
   state = {
@@ -31,7 +31,7 @@ export default class ModalDialog extends Component {
           <ModalFooter>
             <Button color="primary" onClick={onApply}>
               Ок
-            </Button>{" "}
+            </Button>{' '}
             <Button outline color="secondary" onClick={this.toggle}>
               Отмена
             </Button>
