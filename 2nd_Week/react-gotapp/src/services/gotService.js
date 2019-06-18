@@ -10,22 +10,55 @@ export default class GotService {
     }
     return await res.json();
   }
-  getAllCharacters() {
-    return this.getResource('/characters?page=4&pageSize=10');
+  async getAllCharacters() {
+    const characters = await this.getResource('/characters?page=4&pageSize=10');
+    return characters.map(this._transformCharacter);
   }
-  getCharacter(id) {
-    return this.getResource(`/characters/${id}`);
+  async getCharacter(id) {
+    const char = await this.getResource(`/characters/${id}`);
+    return this._transformCharacter(char);
   }
-  getAllBooks() {
-    return this.getResource('/books');
+  async getAllBooks() {
+    const books = await this.getResource('/books');
+    return books.map(this._transformBook);
   }
-  getBook(id) {
-    return this.getResource(`/books/${id}`);
+  async getBook(id) {
+    const book = await this.getResource(`/books/${id}`);
+    return this._transformBook(book);
   }
-  getAllHouses() {
-    return this.getResource('/houses');
+  async getAllHouses() {
+    const houses = await this.getResource('/houses');
+    return houses.map(this._transformHouse);
   }
-  getHouse(id) {
-    return this.getResource(`/houses/${id}`);
+  async getHouse(id) {
+    const house = await this.getResource(`/houses/${id}`);
+    return this._transformHouse(house);
+  }
+
+  _transformCharacter(char) {
+    return {
+      name: char.name ? char.name : 'no data...',
+      gender: char.gender ? char.gender : 'no data...',
+      born: char.born ? char.born : 'no data...',
+      died: char.died ? char.died : 'no data...',
+      culture: char.culture ? char.culture : 'no data...'
+    };
+  }
+  _transformHouse(house) {
+    return {
+      name: house.name ? house.name : 'no data...',
+      region: house.region ? house.region : 'no data...',
+      titles: house.titles ? house.titles : 'no data...',
+      overlord: house.overlord ? house.overlord : 'no data...',
+      ancestralWeapons: house.ancestralWeapons ? house.ancestralWeapons : 'no data...'
+    };
+  }
+  _transformBook(book) {
+    return {
+      name: book.name ? book.name : 'no data...',
+      numberOfPages: book.numberOfPages ? book.numberOfPages : 'no data...',
+      publisher: book.publisher ? book.publisher : 'no data...',
+      released: book.released ? book.released : 'no data...'
+    };
   }
 }
