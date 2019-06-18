@@ -47,11 +47,7 @@ export default class App extends Component {
     this.setState(({ data }) => {
       const index = data.findIndex(elem => elem.id === id);
       const newData = [...data];
-      if (field === "important") {
-        newData[index].important = !newData[index].important;
-      } else if (field === "like") {
-        newData[index].like = !newData[index].like;
-      }
+      newData[index][field] = !newData[index][field];
       return {
         data: newData
       };
