@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import { Col, Row, Container } from 'reactstrap';
-import Header from '../header';
-import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import React, { Component } from "react";
+import { Col, Row, Container } from "reactstrap";
+import Header from "../header";
+import RandomChar from "../randomChar";
+import ItemList from "../itemList";
+import CharDetails from "../charDetails";
 // import GotService from './../../services/gotService';
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Label = styled.label`
   color: white;
   margin-left: 5px;
+  cursor: pointer;
 `;
 export default class App extends Component {
   state = {
