@@ -4,7 +4,6 @@ import Header from "../header";
 import RandomChar from "../randomChar";
 import ItemList from "../itemList";
 import CharDetails from "../charDetails";
-// import GotService from './../../services/gotService';
 import styled from "styled-components";
 
 const Label = styled.label`
@@ -14,35 +13,34 @@ const Label = styled.label`
 `;
 export default class App extends Component {
   state = {
-    showRandomCharacter: true
+    showRandomCharacter: true,
+    characters: [],
+    selectedCharacterId: null,
+    error: false,
+    errMessage: "",
+    status: null
   };
-  componentDidMount() {
-    // const got = new GotService();
-    // got.getAllCharacters().then(res => {
-    //   console.error('Персонажи');
-    //   res.forEach(item => {
-    //     console.log(item.name);
-    //   });
-    // });
-    // got.getAllBooks().then(res => {
-    //   console.error('Книги');
-    //   res.forEach(item => {
-    //     console.log(item.name);
-    //   });
-    // });
-    // got.getAllHouses().then(res => {
-    //   console.error('Дома');
-    //   res.forEach(item => {
-    //     console.log(item.name);
-    //   });
-    // });
-  }
+
+  onError = (err, status) => {
+    this.setState({
+      loading: false,
+      error: true,
+      errMessage: err,
+      status
+    });
+  };
+  charactersLoaded = characters => {
+    this.setState({ characters, selectedCharacterId: characters[0].id });
+  };
 
   showRandomCharacterChange = () => {
     this.setState({ showRandomCharacter: !this.state.showRandomCharacter });
   };
-
+  selectCharacter = selectedCharacterId => {
+    this.setState({ selectedCharacterId });
+  };
   render() {
+    const { showRandomCharacter, characters, selectedCharacterId, error, errMessage, status } = this.state;
     return (
       <>
         <Container>
@@ -52,7 +50,7 @@ export default class App extends Component {
           <input
             id="shrandchar"
             type="checkbox"
-            checked={this.state.showRandomCharacter}
+            checked={showRandomCharacter}
             onChange={this.showRandomCharacterChange}
           />
           <Label htmlFor="shrandchar">Show random character</Label>
@@ -61,7 +59,7 @@ export default class App extends Component {
         <Container>
           {this.state.showRandomCharacter && (
             <Row>
-              <Col lg={{ size: 5, offset: 0 }}>
+              <Col lg={{ size: 6 }}>
                 <RandomChar />
               </Col>
             </Row>
@@ -69,10 +67,18 @@ export default class App extends Component {
 
           <Row>
             <Col md="6">
-              <ItemList />
+              <ItemList
+                characters={characters}
+                onSelectCharacter={this.selectCharacter}
+                onLoaded={this.charactersLoaded}
+                onError={this.onError}
+                error={error}
+                errMessage={errMessage}
+                status={status}
+              />
             </Col>
             <Col md="6">
-              <CharDetails />
+              <CharDetails characters={characters} id={selectedCharacterId} error={error} />
             </Col>
           </Row>
         </Container>

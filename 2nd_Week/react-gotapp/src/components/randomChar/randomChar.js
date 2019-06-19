@@ -18,6 +18,9 @@ const RandomBlock = styled.div`
 const Term = styled.span`
   font-weight: bold;
 `;
+const Span = styled.span`
+  display: block;
+`;
 
 export default class RandomChar extends Component {
   state = {
@@ -27,26 +30,33 @@ export default class RandomChar extends Component {
     errMessage: ""
   };
 
+  got = new GotService();
+  interval = null;
+
   componentDidMount() {
-    const got = new GotService();
-    got
-      //.getCharacter(150000)
-      .getCharacter(Math.floor(Math.random() * 130))
+    this.updateChar();
+    this.interval = setInterval(this.updateChar, 2000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  updateChar = () => {
+    let id = Math.floor(Math.random() * 130);
+    if (id === 0) id = 210;
+    // id = 15000;
+    this.got
+      .getCharacter(id)
       .then(char => {
         this.setState({ char, loading: false });
       })
       .catch(this.onError);
-  }
+  };
 
   onError = err => {
     this.setState({
-      char: {
-        //name: "Ops, we got error!",
-        //gender: "Ops, we got error!",
-        //born: "Ops, we got error!",
-        //died: "Ops, we got error!",
-        //culture: "Ops, we got error!"
-      },
+      char: {},
       loading: false,
       error: true,
       errMessage: err
@@ -65,10 +75,12 @@ export default class RandomChar extends Component {
 
     return (
       <RandomBlock className={classNames}>
-        {error && <ErrorMessage err={errMessage} />}
+        {error && <ErrorMessage err={errMessage} status={this.got.status} />}
         {!error && (
           <>
-            <h4>Random Character: {loading ? "Loading..." : name}</h4>
+            <h4>
+              Random Character: <Span> {loading ? "Loading..." : name} </Span>
+            </h4>
             <ul className="list-group list-group-flush">
               <li className="list-group-item d-flex justify-content-between">
                 <Term>Gender </Term>
