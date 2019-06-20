@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import capitalizeFirstLetter from "../../utils/utils";
+import React from 'react';
+import styled from 'styled-components';
+import capitalizeFirstLetter from '../../utils/utils';
 
 const Wrapper = styled.div`
   background-color: #fff;
@@ -18,7 +18,7 @@ const SelectError = styled.div`
   font-size: 26px;
 `;
 
-const ItemDetails = ({ data, id, error }) => {
+const ItemDetails = ({ data, id, error, loading, type }) => {
   let arr = [...data];
   arr = arr.filter(item => {
     return item.id === id;
@@ -27,7 +27,7 @@ const ItemDetails = ({ data, id, error }) => {
 
   const view = [];
   for (let key in item) {
-    if (key === "id") continue;
+    if (key === 'id') continue;
     view.push(
       <li key={key} className="list-group-item d-flex justify-content-between">
         <span className="term">{capitalizeFirstLetter(key)}</span>
@@ -36,8 +36,10 @@ const ItemDetails = ({ data, id, error }) => {
     );
   }
 
-  if (error) return <SelectError>Error !</SelectError>;
-  if (item === undefined) return <SelectError>waiting for data</SelectError>;
+  if (error) return <SelectError>Something goes wrong!</SelectError>;
+  if (loading) return <SelectError>Waiting for data</SelectError>;
+  if (id === null) return <SelectError>{`Please select ${type}`}</SelectError>;
+
   return (
     <Wrapper className="rounded">
       <h4>{item.name}</h4>
