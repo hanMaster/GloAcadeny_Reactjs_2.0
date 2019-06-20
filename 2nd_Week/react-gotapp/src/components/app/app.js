@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { Col, Row, Container } from "reactstrap";
-import Header from "../header";
-import RandomChar from "../randomChar";
-import ItemList from "../itemList";
-import CharDetails from "../charDetails";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { Col, Row, Container } from 'reactstrap';
+import Header from '../header';
+import RandomChar from '../randomChar';
+import styled from 'styled-components';
+import CharacterPage from './../pages/characterPage/characterPage';
 
 const Label = styled.label`
   color: white;
@@ -15,32 +14,21 @@ export default class App extends Component {
   state = {
     showRandomCharacter: true,
     characters: [],
+    books: [],
+    houses: [],
     selectedCharacterId: null,
     error: false,
-    errMessage: "",
+    errMessage: '',
     status: null
-  };
-
-  onError = (err, status) => {
-    this.setState({
-      loading: false,
-      error: true,
-      errMessage: err,
-      status
-    });
-  };
-  charactersLoaded = characters => {
-    this.setState({ characters, selectedCharacterId: characters[0].id });
   };
 
   showRandomCharacterChange = () => {
     this.setState({ showRandomCharacter: !this.state.showRandomCharacter });
   };
-  selectCharacter = selectedCharacterId => {
-    this.setState({ selectedCharacterId });
-  };
+
   render() {
     const { showRandomCharacter, characters, selectedCharacterId, error, errMessage, status } = this.state;
+
     return (
       <>
         <Container>
@@ -59,28 +47,21 @@ export default class App extends Component {
         <Container>
           {this.state.showRandomCharacter && (
             <Row>
-              <Col lg={{ size: 6 }}>
+              <Col lg="6">
                 <RandomChar />
               </Col>
             </Row>
           )}
-
-          <Row>
-            <Col md="6">
-              <ItemList
-                characters={characters}
-                onSelectCharacter={this.selectCharacter}
-                onLoaded={this.charactersLoaded}
-                onError={this.onError}
-                error={error}
-                errMessage={errMessage}
-                status={status}
-              />
-            </Col>
-            <Col md="6">
-              <CharDetails characters={characters} id={selectedCharacterId} error={error} />
-            </Col>
-          </Row>
+          <CharacterPage
+            characters={characters}
+            selectedCharacterId={selectedCharacterId}
+            error={error}
+            errMessage={errMessage}
+            status={status}
+            selectCharacter={this.selectCharacter}
+            onError={this.onError}
+            charactersLoaded={this.charactersLoaded}
+          />
         </Container>
       </>
     );
