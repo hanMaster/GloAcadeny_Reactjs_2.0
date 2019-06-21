@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import RowBlock from './../../rowBlock/rowBlock';
-import ItemDetails from '../../itemDetails/itemDetails';
 import ItemList from './../../itemList/index';
 import GotService from './../../../services/gotService';
+import { withRouter } from 'react-router-dom';
 
-export default class Page extends Component {
+class BooksPage extends Component {
   got = new GotService();
   state = {
     data: [],
@@ -14,7 +13,8 @@ export default class Page extends Component {
   };
 
   componentDidMount() {
-    this.got[this.props.func]()
+    this.got
+      .getAllBooks()
       .then(data => {
         this.setState({ loading: false, data });
       })
@@ -33,11 +33,17 @@ export default class Page extends Component {
   };
 
   render() {
-    const { data, selectedItemId, error, loading } = this.state;
-    const itemList = (
+    const { data, error, loading } = this.state;
+
+    // const itemDetails = (
+    //   <ItemDetails data={data} id={selectedItemId} loading={loading} error={error} type={this.props.type} />
+    // );
+    return (
       <ItemList
         data={data}
-        onSelectItem={this.selectItem}
+        onSelectItem={itemId => {
+          this.props.history.push(itemId);
+        }}
         loading={loading}
         onError={this.onError}
         error={error}
@@ -45,10 +51,7 @@ export default class Page extends Component {
         status={this.got.status}
       />
     );
-
-    const itemDetails = (
-      <ItemDetails data={data} id={selectedItemId} loading={loading} error={error} type={this.props.type} />
-    );
-    return <RowBlock left={itemList} right={itemDetails} />;
   }
 }
+
+export default withRouter(BooksPage);
