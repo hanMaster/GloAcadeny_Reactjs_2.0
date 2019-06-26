@@ -1,7 +1,7 @@
-const filterReducer = (state, action) => {
+const filterReducer = (state = false, action) => {
   switch (action.type) {
     case 'HIDE_COMPLETED':
-      return action.filter;
+      return !state;
     default:
       return state;
   }

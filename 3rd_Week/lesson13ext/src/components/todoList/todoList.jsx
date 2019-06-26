@@ -3,14 +3,13 @@ import TodoItem from './../todoItem/todoItem';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 
-const TodoList = ({ taskList, add, toggle }) => {
+const TodoList = ({ taskList, toggle }) => {
   const list = taskList.map(item => {
     return (
       <TodoItem
         key={item.id}
         task={item.text}
         completed={item.completed}
-        add={add}
         toggle={() => toggle(item.id)}
       />
     );
@@ -23,9 +22,12 @@ const TodoList = ({ taskList, add, toggle }) => {
 };
 
 const mapStateToProps = state => {
-  const { taskList } = state;
+  const { taskReducer, filterReducer } = state;
   return {
-    taskList
+    taskList: filterReducer
+      ? taskReducer.filter(item => item.completed !== filterReducer)
+      : taskReducer,
+    filter: filterReducer
   };
 };
 
