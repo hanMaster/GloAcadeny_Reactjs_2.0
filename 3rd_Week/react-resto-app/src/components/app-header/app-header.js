@@ -7,7 +7,7 @@ import './app-header.scss';
 const AppHeader = ({ total }) => {
   return (
     <header className="header">
-      <NavLink className="header__link" to="/">
+      <NavLink className="header__link" exact to="/">
         Menu
       </NavLink>
       <NavLink className="header__link" to="/cart">
