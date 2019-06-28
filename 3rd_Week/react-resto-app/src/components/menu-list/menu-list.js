@@ -7,31 +7,15 @@ import Spinner from '../spinner';
 import Error from '../error/';
 import './menu-list.scss';
 
-class MenuList extends Component {
-  componentDidMount() {
-    this.props.menuRequested();
-    const { rs, menuLoaded, menuError } = this.props;
-
-    rs.getMenuItems()
-      .then(res => menuLoaded(res))
-      .catch(() => menuError(rs.errMessage));
-  }
-
-  render() {
-    const { menuItems, loading, error, errMessage } = this.props;
-
-    if (loading) return <Spinner />;
-    if (error) return <Error err={errMessage} />;
-
-    return (
-      <ul className="menu__list">
-        {menuItems.map(menuItem => {
-          return <MenuListItem key={menuItem.id} menuItem={menuItem} />;
-        })}
-      </ul>
-    );
-  }
-}
+const MenuList = ({ menuItems }) => {
+  return (
+    <ul className="menu__list">
+      {menuItems.map(menuItem => {
+        return <MenuListItem key={menuItem.id} menuItem={menuItem} />;
+      })}
+    </ul>
+  );
+};
 
 const mapStateToProps = state => {
   return {
@@ -42,9 +26,29 @@ const mapStateToProps = state => {
   };
 };
 
+const withData = () => {
+  return class extends Component {
+    componentDidMount() {
+      this.props.menuRequested();
+      const { rs, menuLoaded, menuError } = this.props;
+
+      rs.getMenuItems()
+        .then(res => menuLoaded(res))
+        .catch(() => menuError(rs.errMessage));
+    }
+    render() {
+      const { loading, error, errMessage } = this.props;
+
+      if (loading) return <Spinner />;
+      if (error) return <Error err={errMessage} />;
+      return <MenuList {...this.props} />;
+    }
+  };
+};
+
 export default WithRestoService()(
   connect(
     mapStateToProps,
     { menuLoaded, menuRequested, menuError }
-  )(MenuList)
+  )(withData())
 );
