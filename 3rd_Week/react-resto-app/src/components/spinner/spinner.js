@@ -1,7 +1,14 @@
 import React from 'react';
 
 const Spinner = () => {
-    return <div className="spinner">loading...</div>
-}
+  const SpinnerStyle = {
+    color: 'crimson'
+  };
+  return (
+    <div className="spinner" style={SpinnerStyle}>
+      loading...
+    </div>
+  );
+};
 
 export default Spinner;

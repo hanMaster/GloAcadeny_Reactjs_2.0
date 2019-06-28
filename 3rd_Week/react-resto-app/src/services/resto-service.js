@@ -19,6 +19,10 @@ export default class RestoService {
     return menu.map(this._transformMenu);
   };
 
+  getDish = async id => {
+    return await this.getResource(`/menu/${id}`);
+  };
+
   _transformMenu = menuItem => {
     return {
       title: menuItem.title ? menuItem.title : 'no data...',
