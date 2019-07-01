@@ -15,7 +15,7 @@ class AppHeader extends Component {
     this.props.rs
       .setData(this.props.items)
       .then(() => {
-        this.setState({ message: 'Oredr saved!' });
+        this.setState({ message: 'Order saved!' });
         setTimeout(() => this.setState({ message: '' }), 2000);
       })
       .catch(() => {

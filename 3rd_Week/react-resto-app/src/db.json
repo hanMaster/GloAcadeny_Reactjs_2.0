@@ -36,5 +36,16 @@
       "id": 5
     }
   ],
-  "cart": []
+  "cart": [
+    [
+      {
+        "title": "Pizza Napoletana",
+        "price": 13,
+        "url": "https://www.pizzanapoletana.org/struttura/pagine_bicolor/mobile/decalogo_avpn_1.jpg",
+        "category": "pizza",
+        "id": 3,
+        "cnt": 1
+      }
+    ]
+  ]
 }
