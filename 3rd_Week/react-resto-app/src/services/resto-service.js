@@ -33,8 +33,8 @@ export default class RestoService {
     };
   };
 
-  setData = async (data = {}) => {
-    const res = await fetch(`${this._apiBase}/menu`, {
+  setData = async (data = []) => {
+    const res = await fetch(`${this._apiBase}/cart`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',

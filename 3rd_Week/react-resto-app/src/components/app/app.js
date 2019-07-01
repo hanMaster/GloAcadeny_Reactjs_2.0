@@ -5,15 +5,14 @@ import Background from './food-bg.jpg';
 import { Switch, Route } from 'react-router-dom';
 import Page_404 from './../page404/page404';
 import Dish from './../dish/dish';
-import { connect } from 'react-redux';
 
-const App = ({ total }) => {
+const App = () => {
   return (
     <div
       style={{ background: `url(${Background}) center center/cover no-repeat` }}
       className="app"
     >
-      <AppHeader total={total} />
+      <AppHeader />
       <Switch>
         <Route path="/" exact component={MainPage} />
         <Route path="/cart" exact component={CartPage} />
@@ -31,8 +30,4 @@ const App = ({ total }) => {
   );
 };
 
-const mapStateToProps = ({ total }) => {
-  return { total };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;
