@@ -16,9 +16,15 @@
     color: #ffffff;
     text-decoration: none;
   }
+
   &__cart {
     width: 20px;
     margin-right: 10px;
+  }
+
+  &__save {
+    width: 20px;
+    cursor: pointer;
   }
   .active {
     text-decoration: underline;
