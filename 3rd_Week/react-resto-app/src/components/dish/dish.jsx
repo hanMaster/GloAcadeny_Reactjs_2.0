@@ -3,6 +3,8 @@ import WithRestoService from './../hoc/with-resto-service';
 import { Link } from 'react-router-dom';
 import Spinner from '../spinner';
 import Error from '../error/';
+import { addFromPageToCart } from '../../actions';
+import { connect } from 'react-redux';
 import './dish.scss';
 
 class Dish extends Component {
@@ -31,7 +33,12 @@ class Dish extends Component {
             <h2>Category: {dish.category}</h2>
             <span>Price: ${dish.price}</span>
             <div className="buttons">
-              <button className="btn add">Add to cart</button>
+              <button
+                className="btn add"
+                onClick={() => this.props.addFromPageToCart(dish)}
+              >
+                Add to cart
+              </button>
               <Link to="/" className="btn back">
                 Back to menu
               </Link>
@@ -43,4 +50,9 @@ class Dish extends Component {
   }
 }
 
-export default WithRestoService()(Dish);
+export default WithRestoService()(
+  connect(
+    undefined,
+    { addFromPageToCart }
+  )(Dish)
+);

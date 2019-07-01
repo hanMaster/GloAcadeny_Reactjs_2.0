@@ -5,7 +5,10 @@ import pizza from './img/pizza.svg';
 import meat from './img/meat.svg';
 import './menu-list-item.scss';
 
-const MenuListItem = ({ menuItem: { title, url, price, category, id } }) => {
+const MenuListItem = ({
+  menuItem: { title, url, price, category, id },
+  onAddToCart
+}) => {
   let icon = undefined;
   switch (category) {
     case 'salads':
@@ -36,7 +39,9 @@ const MenuListItem = ({ menuItem: { title, url, price, category, id } }) => {
       <div className="menu__price">
         Price: <span>${price}</span>
       </div>
-      <button className="menu__btn">Add to cart</button>
+      <button className="menu__btn" onClick={() => onAddToCart(id)}>
+        Add to cart
+      </button>
     </li>
   );
 };

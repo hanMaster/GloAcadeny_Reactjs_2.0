@@ -12,7 +12,7 @@ const AppHeader = ({ total }) => {
       </NavLink>
       <NavLink className="header__link" to="/cart">
         <img className="header__cart" src={cartIcon} alt="cart" />
-        Total: {total} $
+        Total: ${total}
       </NavLink>
     </header>
   );

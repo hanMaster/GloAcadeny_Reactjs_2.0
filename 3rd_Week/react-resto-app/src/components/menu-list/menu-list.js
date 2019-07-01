@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import MenuListItem from '../menu-list-item';
 import { connect } from 'react-redux';
-import { menuLoaded, menuRequested, menuError } from '../../actions';
+import {
+  menuLoaded,
+  menuRequested,
+  menuError,
+  addedToCart
+} from '../../actions';
 import WithRestoService from './../hoc/with-resto-service';
 import Spinner from '../spinner';
 import Error from '../error/';
 import './menu-list.scss';
 
-const MenuList = ({ menuItems }) => {
+const MenuList = ({ menuItems, addedToCart }) => {
   return (
     <ul className="menu__list">
       {menuItems.map(menuItem => {
-        return <MenuListItem key={menuItem.id} menuItem={menuItem} />;
+        return (
+          <MenuListItem
+            key={menuItem.id}
+            menuItem={menuItem}
+            onAddToCart={addedToCart}
+          />
+        );
       })}
     </ul>
   );
@@ -49,6 +60,6 @@ const withData = () => {
 export default WithRestoService()(
   connect(
     mapStateToProps,
-    { menuLoaded, menuRequested, menuError }
+    { menuLoaded, menuRequested, menuError, addedToCart }
   )(withData())
 );
