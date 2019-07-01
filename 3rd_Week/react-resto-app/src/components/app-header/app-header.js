@@ -11,17 +11,23 @@ class AppHeader extends Component {
   state = {
     message: ''
   };
+  showMessage = msg => {
+    this.setState({ message: msg });
+    setTimeout(() => this.setState({ message: '' }), 2000);
+  };
   saveCart = () => {
-    this.props.rs
-      .setData(this.props.items)
-      .then(() => {
-        this.setState({ message: 'Order saved!' });
-        setTimeout(() => this.setState({ message: '' }), 2000);
-      })
-      .catch(() => {
-        this.setState({ message: this.props.rs.errMessage });
-        setTimeout(() => this.setState({ message: '' }), 2000);
-      });
+    if (this.props.items.length > 0) {
+      this.props.rs
+        .setData(this.props.items)
+        .then(() => {
+          this.showMessage('Order saved!');
+        })
+        .catch(() => {
+          this.showMessage(this.props.rs.errMessage);
+        });
+    } else {
+      this.showMessage('Empty cart');
+    }
   };
   render() {
     const { total } = this.props;
