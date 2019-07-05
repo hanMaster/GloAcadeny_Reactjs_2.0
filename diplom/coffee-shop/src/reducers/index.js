@@ -23,6 +23,13 @@ const reducer = (state = initialState, action) => {
         coffee: action.payload,
         loading: false
       };
+    case 'GOODS_LOADED':
+      // console.log('coffee loaded', action.payload);
+      return {
+        ...state,
+        goods: action.payload,
+        loading: false
+      };
     case 'DATA_REQUESTED':
       // console.log('requested data');
       return {

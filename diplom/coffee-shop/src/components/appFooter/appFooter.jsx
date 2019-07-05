@@ -21,7 +21,7 @@ const AppFooter = () => {
             <Link to="/goods">For your pleasure</Link>
           </li>
           <li className="footer__item">
-            <Link to="#">Contact us</Link>
+            <Link to="/contactus">Contact us</Link>
           </li>
         </ul>
         <img className="beanslogo" src={logoDark} alt="Beans logo" />

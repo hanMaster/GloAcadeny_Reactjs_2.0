@@ -38,7 +38,7 @@ class CoffeePage extends Component {
     );
     const filteredItems = searchedItems.filter(i => i.country.includes(filter));
     const shopItems = filteredItems.map(item => (
-      <ShopItem key={item.name} shopItem={item} />
+      <ShopItem key={item.name} shopItem={item} doLink />
     ));
 
     return (
@@ -127,11 +127,7 @@ class CoffeePage extends Component {
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-lg-10 offset-lg-1">
-                <div className="shop__wrapper">{shopItems}</div>
-              </div>
-            </div>
+            <div className="shop__wrapper">{shopItems}</div>
           </div>
         </section>
         <AppFooter />

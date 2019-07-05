@@ -21,4 +21,8 @@ export default class DbService {
   getCoffee = async (url = '/coffee') => {
     return await this.getResource(url);
   };
+
+  getGoods = async (url = '/goods') => {
+    return await this.getResource(url);
+  };
 }

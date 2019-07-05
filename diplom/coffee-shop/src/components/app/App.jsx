@@ -4,7 +4,7 @@ import './App.css';
 import MainPage from '../../pages/mainPage/mainPage';
 import CoffeePage from '../../pages/coffeePage/coffeePage';
 import ItemPage from '../../pages/itemPage/itemPage';
-
+import ContactUsPage from '../../pages/contactUs/contactUs';
 import Page_404 from './../page404/page404';
 import GoodsPage from '../../pages/goodsPage/goodsPage';
 
@@ -15,6 +15,7 @@ function App() {
         <Route path="/" exact component={MainPage} />
         <Route path="/coffee" exact component={CoffeePage} />
         <Route path="/goods" exact component={GoodsPage} />
+        <Route path="/contactus" exact component={ContactUsPage} />
         <Route
           path="/coffee/:name"
           exact

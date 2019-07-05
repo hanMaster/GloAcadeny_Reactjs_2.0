@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AppHeader from '../../components/appHeader/appHeader';
 import AppFooter from '../../components/appFooter/appFooter';
-import BestItem from '../../components/bestItem/bestItem';
 import WithDbService from '../../components/hoc/withService';
+import ShopItem from './../../components/shopItem/shopItem';
 import Spinner from '../../components/spinner/spinner';
 import Error from '../../components/error/error';
 import {
   bestsellersLoaded,
   coffeeLoaded,
+  goodsLoaded,
   dataRequested,
   getDataError
 } from '../../actions';
@@ -25,6 +26,7 @@ class MainPage extends Component {
       dbService,
       bestsellersLoaded,
       coffeeLoaded,
+      goodsLoaded,
       dataRequested,
       getDataError
     } = this.props;
@@ -33,10 +35,13 @@ class MainPage extends Component {
       .getBestsellers()
       .then(res => bestsellersLoaded(res))
       .catch(() => getDataError(dbService.errMessage));
-    dataRequested();
     dbService
       .getCoffee()
       .then(res => coffeeLoaded(res))
+      .catch(() => getDataError(dbService.errMessage));
+    dbService
+      .getGoods()
+      .then(res => goodsLoaded(res))
       .catch(() => getDataError(dbService.errMessage));
   }
 
@@ -49,12 +54,7 @@ class MainPage extends Component {
       bestItems = <Error err={errMessage} />;
     } else {
       bestItems = best.map(item => (
-        <BestItem
-          key={item.name}
-          title={item.name}
-          price={item.price}
-          url={item.url}
-        />
+        <ShopItem key={item.name} shopItem={item} doLink />
       ));
     }
     return (
@@ -142,6 +142,12 @@ const mapStateToProps = state => {
 export default WithDbService()(
   connect(
     mapStateToProps,
-    { bestsellersLoaded, coffeeLoaded, dataRequested, getDataError }
+    {
+      bestsellersLoaded,
+      coffeeLoaded,
+      goodsLoaded,
+      dataRequested,
+      getDataError
+    }
   )(MainPage)
 );

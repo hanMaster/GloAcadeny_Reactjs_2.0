@@ -19,7 +19,7 @@ const AppHeader = () => {
           <NavLink to="/goods">For your pleasure</NavLink>
         </li>
         <li className="header__item">
-          <NavLink to="#">Contact us</NavLink>
+          <NavLink to="/contactus">Contact us</NavLink>
         </li>
       </ul>
     </header>

@@ -1,6 +1,5 @@
 .preview
     height: 640px
-    // background: url('./img/Main_bg.jpg') center center no-repeat
     background-size: cover
     .title-big
         margin-top: 110px
@@ -59,32 +58,8 @@
 .best
     padding: 80px 0 110px 0
     background-color: #fff
-    // background: url('./img/paper.jpg') center center no-repeat
     background-size: cover
     &__wrapper
         display: flex 
         flex-wrap: wrap
-    &__item 
-        width: 220px
-        min-height: 240px
-        margin: 0 auto
-        margin-top: 40px
-        padding: 22px 21px
-        background: rgba(255, 255, 255, 0.65)
-        border-radius: 8px
-        a
-          text-decoration: none
-          color: #000000
-        &:hover, &:focused, &:visited
-          color: #000000
-        img 
-            display: block 
-            margin: 0 auto
-            width: 151px
-            height: 130px 
-            object-fit: cover
-        &-title, &-price
-            font-size: 14px
-            margin-top: 10px
-            text-align: right
-            
+        justify-content: space-around

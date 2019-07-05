@@ -10,6 +10,12 @@ const coffeeLoaded = coffee => {
     payload: coffee
   };
 };
+const goodsLoaded = goods => {
+  return {
+    type: 'GOODS_LOADED',
+    payload: goods
+  };
+};
 
 const dataRequested = () => {
   return {
@@ -23,4 +29,10 @@ const getDataError = err => {
   };
 };
 
-export { bestsellersLoaded, coffeeLoaded, dataRequested, getDataError };
+export {
+  bestsellersLoaded,
+  coffeeLoaded,
+  goodsLoaded,
+  dataRequested,
+  getDataError
+};
