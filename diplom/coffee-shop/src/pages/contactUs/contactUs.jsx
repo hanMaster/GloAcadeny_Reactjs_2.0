@@ -28,8 +28,8 @@ class ContactUsPage extends Component {
   };
 
   validatePhone = phone => {
-    const re = /^((\+7|7|8)+([0-9]){10})$/;
-    return re.test(String(phone));
+    console.log('phone', phone);
+    return false;
   };
 
   emailInserted = e => {
@@ -108,10 +108,12 @@ class ContactUsPage extends Component {
     };
     if (phoneTouch && !validPhone) {
       phoneInputStyle = {
+        ...phoneInputStyle,
         borderColor: 'crimson'
       };
     } else if (validPhone) {
       phoneInputStyle = {
+        ...phoneInputStyle,
         borderColor: 'green'
       };
     }
@@ -184,6 +186,12 @@ class ContactUsPage extends Component {
                     placeholder="+7(___)___-____"
                     inputStyle={phoneInputStyle}
                   />
+                  {/* <PhoneInput
+                    country="RU"
+                    placeholder="Enter phone number"
+                    value={this.state.phone}
+                    onChange={phone => this.setState({ phone })}
+                  /> */}
                 </div>
 
                 <div className="subtitle">
