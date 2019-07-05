@@ -4,4 +4,23 @@ const bestsellersLoaded = bs => {
     payload: bs
   };
 };
-export { bestsellersLoaded };
+const coffeeLoaded = coffee => {
+  return {
+    type: 'COFFEE_LOADED',
+    payload: coffee
+  };
+};
+
+const dataRequested = () => {
+  return {
+    type: 'DATA_REQUESTED'
+  };
+};
+const getDataError = err => {
+  return {
+    type: 'GET_DATA_ERROR',
+    payload: err
+  };
+};
+
+export { bestsellersLoaded, coffeeLoaded, dataRequested, getDataError };

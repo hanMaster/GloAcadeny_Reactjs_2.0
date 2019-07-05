@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logoDark from '../../logo/Beans_logo_dark.svg';
+import logoBlack from '../../logo/Logo_black.svg';
+import './footer.sass';
 
 const AppFooter = () => {
   return (
@@ -8,24 +11,20 @@ const AppFooter = () => {
         <ul className="footer">
           <li className="footer__item">
             <Link to="/">
-              <img src="logo/Logo_black.svg" alt="logo" />
+              <img src={logoBlack} alt="logo" />
             </Link>
           </li>
           <li className="footer__item">
             <Link to="/coffee">Our coffee</Link>
           </li>
           <li className="footer__item">
-            <Link to="/item">For your pleasure</Link>
+            <Link to="/goods">For your pleasure</Link>
           </li>
           <li className="footer__item">
             <Link to="#">Contact us</Link>
           </li>
         </ul>
-        <img
-          className="beanslogo"
-          src="logo/Beans_logo_dark.svg"
-          alt="Beans logo"
-        />
+        <img className="beanslogo" src={logoDark} alt="Beans logo" />
       </div>
     </footer>
   );

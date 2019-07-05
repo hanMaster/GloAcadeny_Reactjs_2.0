@@ -1,11 +1,27 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import AppHeader from '../../components/appHeader/appHeader';
 import AppFooter from '../../components/appFooter/appFooter';
+import beansImg from '../../logo/Beans_logo_dark.svg';
+import { connect } from 'react-redux';
+import background from './img/Coffee_bg.jpg';
+import './coffeepage.sass';
 
-const ItemPage = () => {
+const ItemPage = ({ itemName, coffee }) => {
+  if (coffee.length === 0) {
+    return <Redirect to="/" />;
+  }
+
+  const item = coffee.find(i => i.name === itemName);
+
   return (
     <>
-      <div className="banner">
+      <div
+        className="banner"
+        style={{
+          background: `url(${background}) center center/cover no-repeat`
+        }}
+      >
         <div className="container">
           <AppHeader />
           <h1 className="title-big">Our Coffee</h1>
@@ -15,33 +31,22 @@ const ItemPage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-5 offset-1">
-              <img
-                className="shop__girl"
-                src="img/coffee_item.jpg"
-                alt="coffee_item"
-              />
+              <img className="shop__girl" src={item.url} alt="coffee_item" />
             </div>
             <div className="col-lg-4">
               <div className="title">About it</div>
-              <img
-                className="beanslogo"
-                src="logo/Beans_logo_dark.svg"
-                alt="Beans logo"
-              />
+              <img className="beanslogo" src={beansImg} alt="Beans logo" />
               <div className="shop__point">
                 <span>Country:</span>
-                Brazil
+                {item.country}
               </div>
               <div className="shop__point">
                 <span>Description:</span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                {item.description}
               </div>
               <div className="shop__point">
                 <span>Price:</span>
-                <span className="shop__point-price">16.99$</span>
+                <span className="shop__point-price">${item.price}</span>
               </div>
             </div>
           </div>
@@ -52,4 +57,13 @@ const ItemPage = () => {
   );
 };
 
-export default ItemPage;
+const mapStateToProps = state => {
+  return {
+    coffee: state.coffee
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  undefined
+)(ItemPage);
