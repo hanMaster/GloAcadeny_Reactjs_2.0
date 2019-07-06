@@ -30,6 +30,7 @@ const reducer = (state = initialState, action) => {
         goods: action.payload,
         loading: false
       };
+
     case 'DATA_REQUESTED':
       // console.log('requested data');
       return {
