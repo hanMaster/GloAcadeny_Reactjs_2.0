@@ -24,7 +24,6 @@ class CoffeePage extends Component {
     this.setState({ filter, searchField: '' });
   };
   setSearchCoffee = e => {
-    console.log('e.target.value', e.target.value);
     this.setState({ searchField: e.target.value, filter: '' });
   };
 

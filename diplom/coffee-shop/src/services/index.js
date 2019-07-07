@@ -1,16 +1,16 @@
 export default class DbService {
   constructor() {
     // this._apiBase = 'http://localhost:3001';
-    this._apiBase = 'http://coffee.hanmaster.ru/api';
+    this._apiBase = 'http://jsonplaceholder.hanmaster.ru/api';
 
     this.status = null;
   }
 
   getResource = async url => {
     const res = await fetch(`${this._apiBase}${url}`);
-    // const res = await fetch(this._apiBase, {
+    // const res = await fetch(`${this._apiBase}${url}`, {
     //   method: 'GET',
-    //   mode: 'no-cors',
+    //   mode: 'cors',
     //   cache: 'no-cache',
     //   credentials: 'same-origin',
     //   headers: {
@@ -20,6 +20,7 @@ export default class DbService {
     // });
 
     if (!res.ok) {
+      console.log(res.ok);
       this.status = res.status;
       this.errMessage = `Couldn't fetch ${url}, received ${res.status}`;
       throw new Error(this.errMessage);
