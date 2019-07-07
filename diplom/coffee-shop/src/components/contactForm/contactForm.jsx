@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getDataError } from '../../actions';
 import ReactPhoneInput from 'react-phone-input-2';
+import WithDbService from './../../components/hoc/withService';
 import { validateEmail, validatePhone } from '../../utils/utils';
 
 class ContactForm extends Component {
@@ -56,10 +59,13 @@ class ContactForm extends Component {
   submitClicked = e => {
     e.preventDefault();
     const {
+      name,
       validName,
+      email,
       validEmail,
       phone,
       validPhone,
+      message,
       validMessage
     } = this.state;
     if (
@@ -69,9 +75,17 @@ class ContactForm extends Component {
       validEmail &&
       validMessage
     ) {
+      const data = [name, email, phone, message];
+      this.props.dbService
+        .saveContact(data)
+        .catch(() => getDataError(this.props.dbService.errMessage));
       this.props.sent();
     }
     if (phone.length === 0 && validName && validEmail && validMessage) {
+      const data = [name, email, '', message];
+      this.props.dbService
+        .saveContact(data)
+        .catch(() => getDataError(this.props.dbService.errMessage));
       this.props.sent();
     }
   };
@@ -204,4 +218,9 @@ class ContactForm extends Component {
     );
   }
 }
-export default ContactForm;
+export default WithDbService()(
+  connect(
+    undefined,
+    { getDataError }
+  )(ContactForm)
+);

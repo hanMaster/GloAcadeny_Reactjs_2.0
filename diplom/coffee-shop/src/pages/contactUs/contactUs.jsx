@@ -4,7 +4,6 @@ import AppFooter from '../../components/appFooter/appFooter';
 import background from './img/contactUsBg.jpg';
 import logoDark from '../../logo/Beans_logo_dark.svg';
 import './contactUs.sass';
-import WithDbService from './../../components/hoc/withService';
 import Thanks from '../../components/thanks/thanks';
 import ContactForm from '../../components/contactForm/contactForm';
 
@@ -47,4 +46,4 @@ class ContactUsPage extends Component {
   }
 }
 
-export default WithDbService()(ContactUsPage);
+export default ContactUsPage;

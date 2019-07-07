@@ -6,12 +6,13 @@ export default class ErrorBoundry extends Component {
     error: false
   };
 
-  componentDidCatch() {
+  componentDidCatch(error, info) {
+    console.log('DidCatch', error, info);
     this.setState({ error: true });
   }
 
   render() {
-    if (this.state.error) return <Error />;
+    if (this.state.error) return <Error err={'!'} />;
     return this.props.children;
   }
 }
