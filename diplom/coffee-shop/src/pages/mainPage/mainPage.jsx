@@ -32,15 +32,15 @@ class MainPage extends Component {
     } = this.props;
     dataRequested();
     dbService
-      .getBestsellers()
+      .getData('bestsellers')
       .then(res => bestsellersLoaded(res))
       .catch(() => getDataError(dbService.errMessage));
     dbService
-      .getCoffee()
+      .getData('coffee')
       .then(res => coffeeLoaded(res))
       .catch(() => getDataError(dbService.errMessage));
     dbService
-      .getGoods()
+      .getData('goods')
       .then(res => goodsLoaded(res))
       .catch(() => getDataError(dbService.errMessage));
   }

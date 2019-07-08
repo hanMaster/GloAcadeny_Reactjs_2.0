@@ -40,6 +40,7 @@ const reducer = (state = initialState, action) => {
         errMessage: ''
       };
     case 'GET_DATA_ERROR':
+      // console.log('get error', action.payload);
       return {
         ...state,
         loading: false,

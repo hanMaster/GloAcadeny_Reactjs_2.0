@@ -4,15 +4,25 @@
   header('Content-Type: application/json');
   header('Access-Control-Allow-Methods: GET');
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
-	$db = json_decode(file_get_contents('./db.json'));
+  try {
+    $db = json_decode(file_get_contents('./db.json'));
+  } catch(Exception $e) {
+    http_response_code(404);
+    echo 'Error: ', $e->getMessage(), '\n';
+  }
+  
+  if(isset($db)){
+    if (isset($_GET['coffee'])){
+      echo (json_encode($db->coffee));
+    }elseif(isset($_GET['goods'])){
+      echo (json_encode($db->goods));
+    }elseif (isset($_GET['bestsellers'])){
+      echo (json_encode($db->bestsellers));
+    }else{
+      http_response_code(404);  
+    }
+  }else {
+    http_response_code(404);
+  }
 
-	if (isset($_GET['coffee'])){
-		echo (json_encode($db->coffee));
-	}
-		
-	if (isset($_GET['goods'])){
-		echo (json_encode($db->goods));
-	}
-	if (isset($_GET['bestsellers'])){
-		echo (json_encode($db->bestsellers));
-	}
+	

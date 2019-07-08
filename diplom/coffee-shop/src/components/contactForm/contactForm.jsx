@@ -4,6 +4,7 @@ import { getDataError } from '../../actions';
 import ReactPhoneInput from 'react-phone-input-2';
 import WithDbService from './../../components/hoc/withService';
 import { validateEmail, validatePhone } from '../../utils/utils';
+import checked from './img/checked.svg';
 
 class ContactForm extends Component {
   state = {
@@ -107,49 +108,77 @@ class ContactForm extends Component {
     } = this.state;
 
     let nameInputStyle = {};
+    let nameSpanStyle = {};
     if (nameTouch && !validName) {
       nameInputStyle = {
         borderColor: 'crimson'
       };
+      nameSpanStyle = {
+        display: 'none'
+      };
     } else if (validName) {
       nameInputStyle = {
-        borderColor: 'green'
+        borderColor: '#6AC259'
+      };
+      nameSpanStyle = {
+        display: 'inline-block'
       };
     }
 
     let emailInputStyle = {};
+    let emailSpanStyle = {};
     if (emailTouch && !validEmail) {
       emailInputStyle = {
         borderColor: 'crimson'
       };
+      emailSpanStyle = {
+        display: 'none'
+      };
     } else if (validEmail) {
       emailInputStyle = {
-        borderColor: 'green'
+        borderColor: '#6AC259'
+      };
+      emailSpanStyle = {
+        display: 'inline-block'
       };
     }
 
     let phoneInputStyle = {
       outline: 'none'
     };
+    let phoneSpanStyle = {};
     if (phoneTouch && !validPhone) {
       phoneInputStyle = {
         ...phoneInputStyle,
         borderColor: 'crimson'
       };
+      phoneSpanStyle = {
+        display: 'none'
+      };
     } else if (validPhone) {
       phoneInputStyle = {
         ...phoneInputStyle,
-        borderColor: 'green'
+        borderColor: '#6AC259'
+      };
+      phoneSpanStyle = {
+        display: 'inline-block'
       };
     }
     let messageInputStyle = {};
+    let messageSpanStyle = {};
     if (messageTouch && !validMessage) {
       messageInputStyle = {
         borderColor: 'crimson'
       };
+      messageSpanStyle = {
+        display: 'none'
+      };
     } else if (validMessage) {
       messageInputStyle = {
-        borderColor: 'green'
+        borderColor: '#6AC259'
+      };
+      messageSpanStyle = {
+        display: 'inline-block'
       };
     }
     return (
@@ -167,6 +196,12 @@ class ContactForm extends Component {
               onChange={this.nameInserted}
               style={nameInputStyle}
             />
+            <img
+              className="checked"
+              src={checked}
+              alt="checked"
+              style={nameSpanStyle}
+            />
           </div>
           <div className="email">
             <label className="contact__form-label" htmlFor="email">
@@ -179,6 +214,12 @@ class ContactForm extends Component {
               value={email}
               onChange={this.emailInserted}
               style={emailInputStyle}
+            />
+            <img
+              className="checked"
+              src={checked}
+              alt="checked"
+              style={emailSpanStyle}
             />
           </div>
           <div className="phone">
@@ -193,10 +234,24 @@ class ContactForm extends Component {
               inputClass="contact__form-input"
               inputStyle={phoneInputStyle}
             />
+            <img
+              className="checked"
+              src={checked}
+              alt="checked"
+              style={phoneSpanStyle}
+            />
           </div>
 
-          <div className="subtitle">
-            Your message<span className="star">*</span>
+          <div className="subtitle message">
+            <span className="messageSpan">
+              Your message<span className="star">*</span>
+            </span>
+            <img
+              className="checked"
+              src={checked}
+              alt="checked"
+              style={messageSpanStyle}
+            />
           </div>
           <textarea
             cols="30"
@@ -205,6 +260,7 @@ class ContactForm extends Component {
             value={message}
             onChange={this.messageInserted}
           />
+
           <button
             type="submit"
             className="btnSendUs"

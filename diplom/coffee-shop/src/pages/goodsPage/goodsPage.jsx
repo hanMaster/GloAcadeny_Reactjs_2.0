@@ -4,10 +4,9 @@ import { Redirect } from 'react-router-dom';
 import AppHeader from '../../components/appHeader/appHeader';
 import AppFooter from '../../components/appFooter/appFooter';
 import ShopItem from './../../components/shopItem/shopItem';
-import background from './img/Coffee_bg.jpg';
+import background from './img/Goods_bg.jpg';
 import cup from './img/cup.jpg';
 import beansLogoDark from '../../logo/Beans_logo_dark.svg';
-import './coffeepage.sass';
 
 const GoodsPage = ({ goods }) => {
   if (goods.length === 0) {
