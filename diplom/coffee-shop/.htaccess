@@ -1,0 +1,3 @@
+redirect /coffee http://coffee.hanmaster.ru/?coffee
+redirect /goods http://coffee.hanmaster.ru/?goods
+redirect /contactus http://coffee.hanmaster.ru/?contactus

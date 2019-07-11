@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import AppHeader from '../../components/appHeader/appHeader';
 import AppFooter from '../../components/appFooter/appFooter';
@@ -46,6 +47,15 @@ class MainPage extends Component {
   }
 
   render() {
+    const url = window.location.search.substr(1);
+
+    if (url === 'contactus') {
+      return <Redirect to={url} />;
+    } else if (url === 'coffee' || url === 'goods') {
+      return <Redirect to="/" />;
+    } else if (url.length > 0) {
+      return <Redirect to="/ww" />;
+    }
     const { best, loading, error, errMessage } = this.props;
     let bestItems = undefined;
     if (loading) {
